@@ -1,0 +1,52 @@
+
+<form action="{% url 'polls:vote' question.id %}" method="post" >
+    {% csrf_token %}
+    <fieldset>
+        <legend><h1>{{question.question_text}}</h1></legend>
+        {% if error_message %}
+            <p><strong>{{error_message}}</strong></p>
+        {% endif %}
+        {% for choice in question.choice_set.all %}
+            <input 
+                type="radio"
+                name="choice"
+                id="choice{{forloop.counter}}"
+                value="{{choice.id}}"
+            >
+            <label for="choice{{forloop.counter}}">
+                {{choice.choice_text}}
+            </label>
+            <br>
+        {% endfor %}
+          
+    </fieldset>
+    <input type="submit" value="Votar">
+</form>
+
+{% comment "" %}
+{% for question in question %}
+    <h1>{{question.question_text}}</h1>
+    <h1>{{question.choice_set}}</h1>
+{% endfor %}
+<ul>
+    {% if question.choice_set.all %}
+        <h1>{{question.question_text}}</h1>
+            <ul>
+        {% for choice in question.choice_set.all %}
+            <li>{{choice.Choices_text}}</li>
+        {% endfor %}
+            </ul> 
+    {% else %}
+        <p> <h1>{{question.question_text}}</h1></p>
+        <p> No detail are available</p>
+    {% endif %}
+</ul>
+
+{% endcomment %}
+
+
+
+
+
+
+
